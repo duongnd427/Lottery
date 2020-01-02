@@ -83,8 +83,8 @@ App = {
       var stt = 0;
       var winner;
       lotInstance.lotteries(lotteriesCount).then(function (numLucky) {
+
         for (var i = 1; i <= lotteriesCount; i++) {
-          console.log("b")
           lotInstance.lotteries(i).then(function (lottery) {
             var id = lottery[0];
             var value = lottery[1];
@@ -98,21 +98,13 @@ App = {
 
             //danh sach nguoi thang cuoc
             if (value.c[0] == numLucky[3].c[0]) {
-              console.log(numLucky[3].c[0])
               stt += 1;
               winner = lottery[2];
               var WinnersTemplate = "<tr><td>" + stt + "</td><td>" + winner + "</td></tr>"
               winnersResult.append(WinnersTemplate);
-            } 
-          }).then(function() {
-            //xu ly neu khong co nguoi thang cuoc
-            console.log(stt)
-            if (stt == 0) {
-              var WinnersTemplate = "<tr><td>" + stt + "</td><td>" + "Nobody wins in this time :(" + "</td></tr>"
-              winnersResult.append(WinnersTemplate);
             }
           })
-        }        
+        }
       })
     }).then(function () {
       loader.hide();
@@ -142,7 +134,7 @@ App = {
   //thiet lap thoi gian, random con so may man va ghi nó vao hop dong thong minh
   countDown: function () {
     //thiet lap thoi gian dem nguoc
-    var timeCount = new Date("Jan 1, 2020 22:48:00").getTime(); // thời gian game kết thúc fix cứng
+    var timeCount = new Date("Jan 2, 2020 14:12:00").getTime(); // thời gian game kết thúc fix cứng
     var x = setInterval(function () {
       var now = new Date().getTime();
       var distance = timeCount - now;
@@ -167,7 +159,7 @@ App = {
             //random so khi la tai khoan admin va chua co so may man
             if (number.c[0] == 100) {
               if (App.account == "0xa47cdd4258314fd5b0553f9c06b70b343d8e7999") { //tài khoản admin fix cứng
-                number = Math.floor(Math.random() * 2);
+                number = Math.floor(Math.random() * 100);
                 App.contracts.Lot.deployed().then(function (instance) {
                   //them so may man
                   return instance.addLuckyNumber(number, { from: App.account });
@@ -180,7 +172,7 @@ App = {
                 var time = new Date().getTime() + 5000;
                 console.log(time);
                 var y = setInterval(() => {
-                  if(time - new Date().getTime() < 0) {
+                  if (time - new Date().getTime() < 0) {
                     clearInterval(y);
                     window.location.reload();
                   }
